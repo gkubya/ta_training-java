@@ -1,43 +1,45 @@
 package com.epam.training.student_gregory_kubya;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-import org.openqa.selenium.By;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.Duration;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import java.time.Duration;
 
 public class MainPageTest {
-    private WebDriver driver;
-    private MainPage mainPage;
 
-@BeforeEach    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://");
+  private WebDriver driver;
+  private MainPage mainPage;
 
-        mainPage = new MainPage(driver);
-    }
 
-@AfterEach    public void tearDown() {
-        driver.quit();
-    }
+  @BeforeEach
+  public void setUp() {
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--remote-allow-origins=*");
+    driver = new ChromeDriver(options);
+    driver.manage().window().maximize();
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    driver.get("https://fiftyoutlet.com/");
 
-    @Test
-    public void search() {
+    mainPage = new MainPage(driver);
+    mainPage.acceptCookieButton.click();
+  }
 
-    }
+  @AfterEach
+  public void tearDown() {
+    driver.quit();
+  }
 
-    @Test
-    public void toolsMenu() {
-    }
+  @Test
+  public void checkSearchResultQuantity() {
 
-    @Test
-    public void navigationToAllTools() {
+    mainPage.searchButton.click();
+    mainPage.searchForValue("abrigo");
 
-    }
+    assertTrue(400 < mainPage.getSearchResultQuantity());
+  }
 }
