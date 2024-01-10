@@ -29,7 +29,7 @@ public class MainPageTest {
   public void openHomePage() {
     mainPage.openMainPage();
     mainPage.checkMainPageIsLoaded();
-    mainPage.acceptCookieButton.click();
+    mainPage.acceptCookies();
   }
 
   @AfterEach
@@ -40,7 +40,6 @@ public class MainPageTest {
   @Test
   public void checkSearchResultQuantity() {
 
-    mainPage.searchButton.click();
     mainPage.searchForValue("abrigo");
 
     Assertions.assertThat(mainPage.getSearchResultQuantity())
