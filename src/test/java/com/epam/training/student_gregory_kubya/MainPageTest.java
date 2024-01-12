@@ -1,43 +1,49 @@
 package com.epam.training.student_gregory_kubya;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-import org.openqa.selenium.By;
+
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import java.time.Duration;
 
 public class MainPageTest {
-    private WebDriver driver;
-    private MainPage mainPage;
 
-@BeforeEach    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://");
 
-        mainPage = new MainPage(driver);
-    }
+  private static WebDriver driver;
+  private static MainPage mainPage;
 
-@AfterEach    public void tearDown() {
-        driver.quit();
-    }
+  @BeforeAll
+  public static void setUp() {
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--remote-allow-origins=*");
+    driver = new ChromeDriver(options);
+    driver.manage().window().maximize();
+    mainPage = new MainPage(driver);
+  }
 
-    @Test
-    public void search() {
+  @BeforeEach
+  public void openHomePage() {
+    mainPage.openMainPage();
+    mainPage.waitMainPageTobeLoaded();
+    mainPage.acceptCookies();
+  }
 
-    }
+  @AfterEach
+  public void tearDown() {
+    driver.quit();
+  }
 
-    @Test
-    public void toolsMenu() {
-    }
+  @Test
+  public void checkSearchResultQuantity() {
 
-    @Test
-    public void navigationToAllTools() {
+    mainPage.searchForValue("abrigo");
 
-    }
+    Assertions.assertThat(mainPage.getSearchResultQuantity())
+        .as("Check search result quantity")
+        .isGreaterThan(500);
+  }
 }
