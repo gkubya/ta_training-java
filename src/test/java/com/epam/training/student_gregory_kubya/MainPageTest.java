@@ -28,7 +28,7 @@ public class MainPageTest {
   @BeforeEach
   public void openHomePage() {
     mainPage.openMainPage();
-    mainPage.checkMainPageIsLoaded();
+    mainPage.waitMainPageTobeLoaded();
     mainPage.acceptCookies();
   }
 
@@ -43,7 +43,7 @@ public class MainPageTest {
     mainPage.searchForValue("abrigo");
 
     Assertions.assertThat(mainPage.getSearchResultQuantity())
-        .as("The search result quantity does not meed the minimum criteria")
-        .isGreaterThan(300);
+        .as("Check search result quantity")
+        .isGreaterThan(500);
   }
 }
