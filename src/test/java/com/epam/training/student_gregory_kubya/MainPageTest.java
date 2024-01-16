@@ -64,16 +64,14 @@ public class MainPageTest {
       productPage.addToCart();
       productList.add(productPage.createProductObject());
     }
-    List<String> productNameList = productList.stream().map(x -> x.getName()).toList();
-    double sumOfProductsPrices = productList.stream().mapToDouble(ProductDTO::getPrice).sum();
     cartPage.openCartPage();
 
     Assertions.assertThat(cartPage.productNamesOnCart())
         .as("Product not found in cart")
-        .containsAll(productNameList);
+        .containsAll(productList.stream().map(ProductDTO::getName).toList());
     Assertions.assertThat(cartPage.getOrderTotal())
         .as("Order total is not equal")
-        .isEqualTo(sumOfProductsPrices);
+        .isEqualTo(productList.stream().mapToDouble(ProductDTO::getPrice).sum());
     Assertions.assertThat(cartPage.cartProducts())
         .as("ProductDTO not found in cart")
         .containsAll(productList);
