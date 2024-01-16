@@ -1,6 +1,9 @@
 package com.epam.training.student_gregory_kubya;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +18,8 @@ public class MainPageTest {
 
   private static WebDriver driver;
   private static MainPage mainPage;
+  private static ProductPage productPage;
+  private static CartPage cartPage;
 
   @BeforeAll
   public static void setUp() {
@@ -23,6 +28,9 @@ public class MainPageTest {
     driver = new ChromeDriver(options);
     driver.manage().window().maximize();
     mainPage = new MainPage(driver);
+    productPage = new ProductPage(driver);
+    cartPage = new CartPage(driver);
+
   }
 
   @BeforeEach
@@ -44,6 +52,30 @@ public class MainPageTest {
 
     Assertions.assertThat(mainPage.getSearchResultQuantity())
         .as("Check search result quantity")
-        .isGreaterThan(500);
+        .isGreaterThan(300);
+  }
+
+  @Test
+  public void checkMultipleItemsInCart() {
+    List<ProductDTO> productList = new ArrayList<>();
+    List<String> productsReferences = Arrays.asList("3687009", "9006113", "3856253");
+    for (String productReference : productsReferences) {
+      mainPage.openProductPage(productReference);
+      productPage.addToCart();
+      productList.add(productPage.createProductObject());
+    }
+    List<String> productNameList = productList.stream().map(x -> x.getName()).toList();
+    double sumOfProductsPrices = productList.stream().mapToDouble(ProductDTO::getPrice).sum();
+    cartPage.openCartPage();
+
+    Assertions.assertThat(cartPage.productNamesOnCart())
+        .as("Product not found in cart")
+        .containsAll(productNameList);
+    Assertions.assertThat(cartPage.getOrderTotal())
+        .as("Order total is not equal")
+        .isEqualTo(sumOfProductsPrices);
+    Assertions.assertThat(cartPage.cartProducts())
+        .as("ProductDTO not found in cart")
+        .containsAll(productList);
   }
 }
