@@ -53,16 +53,6 @@ public class ProductDTO {
   }
 
   @Override
-  public String toString() {
-    return "ProductDTO{" +
-        "referenceNumber=" + referenceNumber +
-        ", name='" + name + '\'' +
-        ", price=" + price +
-        ", quantity=" + quantity +
-        '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -71,8 +61,12 @@ public class ProductDTO {
       return false;
     }
     ProductDTO that = (ProductDTO) o;
-    return referenceNumber == that.referenceNumber && quantity == that.quantity
-        && Objects.equals(name, that.name) && Objects.equals(price, that.price);
+    return referenceNumber == that.referenceNumber && Double.compare(price, that.price) == 0
+        && quantity == that.quantity && Objects.equals(name, that.name);
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(referenceNumber, name, price, quantity);
+  }
 }

@@ -16,7 +16,7 @@ public class ProductPage {
   private final WebDriverWait wait;
 
 
-  @FindBy(css = ".js-product-reference")
+  @FindBy(css = "div .scope_fixedBar>[data-master-id]")
   private WebElement productReferenceNumber;
 
   @FindBy(css = ".js-product-name")
@@ -26,7 +26,7 @@ public class ProductPage {
   private WebElement productPrice;
 
   @FindBy(css = "label[for='size_M']")
-  private WebElement sizeMButton;
+  private WebElement productMediumSizeButton;
 
   @FindBy(css = ".js-add-to-cart-button.gi-add-to-bag-desktop")
   private WebElement addToCartButton;
@@ -42,18 +42,17 @@ public class ProductPage {
 
   public ProductDTO createProductObject() {
     int referenceNumber = Integer.parseInt(
-        productReferenceNumber.getText().replaceAll("[^0-9]", ""));
+        productReferenceNumber.getAttribute("data-master-id"));
     String name = productName.getText();
-    double price = Double.parseDouble(
-        productPrice.getText().replaceAll("\\s|€", "").replace(",", "."));
+    double price = PriceUtil.convertEuro(productPrice.getText());
     int quantity = 1;
 
     return new ProductDTO(referenceNumber, name, price, quantity);
   }
 
   public void addToCart() {
-    wait.until(ExpectedConditions.elementToBeClickable(sizeMButton));
-    sizeMButton.click();
+    wait.until(ExpectedConditions.elementToBeClickable(productMediumSizeButton));
+    productMediumSizeButton.click();
     addToCartButton.click();
 
     try {

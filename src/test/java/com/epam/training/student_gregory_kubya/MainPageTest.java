@@ -50,8 +50,7 @@ public class MainPageTest {
 
     mainPage.searchForValue("abrigo");
 
-    Assertions.assertThat(mainPage.getSearchResultQuantity())
-        .as("Check search result quantity")
+    Assertions.assertThat(mainPage.getSearchResultQuantity()).as("Check search result quantity")
         .isGreaterThan(300);
   }
 
@@ -66,14 +65,13 @@ public class MainPageTest {
     }
     cartPage.openCartPage();
 
-    Assertions.assertThat(cartPage.productNamesOnCart())
-        .as("Product not found in cart")
+    Assertions.assertThat(cartPage.getProductNamesOnCart())
+        .as("Check all products are present on the cart page")
         .containsAll(productList.stream().map(ProductDTO::getName).toList());
-    Assertions.assertThat(cartPage.getOrderTotal())
-        .as("Order total is not equal")
+    Assertions.assertThat(cartPage.getOrderTotal()).as("Order total is not equal")
         .isEqualTo(productList.stream().mapToDouble(ProductDTO::getPrice).sum());
-    Assertions.assertThat(cartPage.cartProducts())
-        .as("ProductDTO not found in cart")
+    Assertions.assertThat(cartPage.getProductListFromCartPage())
+        .as("Expected all generated ProductDTO objects to be present, but failed to find all")
         .containsAll(productList);
   }
 }

@@ -16,13 +16,13 @@ public class CartPage {
 
 
   @FindAll({@FindBy(css = "div.name.product-name")})
-  List<WebElement> cartNameList;
-  @FindAll({@FindBy(css = "div.sku.product-ref")})
-  List<WebElement> cartReferenceList;
+  List<WebElement> productNamesOnCart;
+  @FindAll({@FindBy(css = "div[class='sku product-ref'] span[class='value']")})
+  List<WebElement> referenceNumbersOnCart;
   @FindAll({@FindBy(css = ".price-total")})
-  List<WebElement> cartPriceList;
+  List<WebElement> productsPricesOnCart;
   @FindAll({@FindBy(css = ".item-quantity>.input-text")})
-  List<WebElement> cartQuantityList;
+  List<WebElement> quantityOfItemsCart;
 
   @FindBy(css = ".order-subtotal>.order-totals-value")
   private WebElement orderTotal;
@@ -33,37 +33,32 @@ public class CartPage {
     PageFactory.initElements(driver, this);
   }
 
-
   public void openCartPage() {
     driver.get(PAGE_URL);
   }
 
-  public List<String> productNamesOnCart() {
-    return cartNameList.stream()
-        .map(WebElement::getText)
-        .toList();
+  public List<String> getProductNamesOnCart() {
+    return productNamesOnCart.stream()
+        .map(WebElement::getText).toList();
   }
 
   public double getOrderTotal() {
-    return Double.parseDouble(orderTotal.getText()
-        .replaceAll("\\s|€", "").replace(",", "."));
+    return PriceUtil.convertEuro(orderTotal.getText());
   }
 
-  public ArrayList<ProductDTO> cartProducts() {
+  public List<ProductDTO> getProductListFromCartPage() {
 
-    ArrayList<ProductDTO> productCartList = new ArrayList<>();
-    for (int i = 0; i < cartNameList.size(); i++) {
-      String name = cartNameList.get(i).getText();
-      String refString = cartReferenceList.get(i).getText()
-          .replaceAll("[^0-9]", "");
-      int referenceNumber = Integer.parseInt(refString.substring(0, refString.length() - 4));
-      double price = Double.parseDouble(cartPriceList.get(i).getText()
-          .replaceAll("\\s|€", "").replace(",", "."));
-      int quantity = Integer.parseInt(cartQuantityList.get(i).getAttribute("value"));
+    List<ProductDTO> getListOfAllProductsOnCartPage = new ArrayList<>();
+    for (int i = 0; i < productNamesOnCart.size(); i++) {
+      String name = productNamesOnCart.get(i).getText();
+      int referenceNumber = Integer.parseInt(referenceNumbersOnCart.get(i).getText()
+          .substring(0, referenceNumbersOnCart.get(i).getText().length() - 4));
+      double price = PriceUtil.convertEuro(productsPricesOnCart.get(i).getText());
+      int quantity = Integer.parseInt(quantityOfItemsCart.get(i).getAttribute("value"));
       ProductDTO product = new ProductDTO(referenceNumber, name, price, quantity);
-      productCartList.add(product);
+      getListOfAllProductsOnCartPage.add(product);
     }
-    return productCartList;
+    return getListOfAllProductsOnCartPage;
   }
 
 }
