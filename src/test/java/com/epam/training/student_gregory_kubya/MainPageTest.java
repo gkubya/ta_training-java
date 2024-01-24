@@ -57,7 +57,7 @@ public class MainPageTest {
   @Test
   public void checkMultipleItemsInCart() {
     List<ProductDTO> productList = new ArrayList<>();
-    List<String> productsReferences = Arrays.asList("3687009", "9006113", "3856253");
+    List<String> productsReferences = Arrays.asList("3856253", "3687009", "9567238");
     for (String productReference : productsReferences) {
       mainPage.openProductPage(productReference);
       productPage.addToCart();

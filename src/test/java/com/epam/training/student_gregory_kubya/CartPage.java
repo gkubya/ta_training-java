@@ -43,7 +43,7 @@ public class CartPage {
   }
 
   public double getOrderTotal() {
-    return PriceUtil.convertEuro(orderTotal.getText());
+    return PriceUtil.parseEuroValue(orderTotal.getText());
   }
 
   public List<ProductDTO> getProductListFromCartPage() {
@@ -53,7 +53,7 @@ public class CartPage {
       String name = productNamesOnCart.get(i).getText();
       int referenceNumber = Integer.parseInt(referenceNumbersOnCart.get(i).getText()
           .substring(0, referenceNumbersOnCart.get(i).getText().length() - 4));
-      double price = PriceUtil.convertEuro(productsPricesOnCart.get(i).getText());
+      double price = PriceUtil.parseEuroValue(productsPricesOnCart.get(i).getText());
       int quantity = Integer.parseInt(quantityOfItemsCart.get(i).getAttribute("value"));
       ProductDTO product = new ProductDTO(referenceNumber, name, price, quantity);
       getListOfAllProductsOnCartPage.add(product);

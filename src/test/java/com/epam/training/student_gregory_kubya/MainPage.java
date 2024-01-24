@@ -33,9 +33,6 @@ public class MainPage {
   private WebElement searchButton;
 
 
-  @FindBy(css = ".js-tile-imageLink.js-tile-navigationLink.js-dl-click-plp-product")
-  private WebElement searchResultButton;
-
 
   public void searchForValue(String value) {
     this.searchFieldOpener.click();
@@ -45,12 +42,7 @@ public class MainPage {
   }
 
   public void openProductPage(String value) {
-    this.searchFieldOpener.click();
-    wait.until(ExpectedConditions.elementToBeClickable(searchButton));
-    this.searchField.sendKeys(value);
-    this.searchField.sendKeys(Keys.ENTER);
-    this.searchResultButton.click();
-
+    driver.get(PAGE_URL + "es/es/" + value + ".html");
   }
 
   public int getSearchResultQuantity() {

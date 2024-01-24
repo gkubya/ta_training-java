@@ -44,7 +44,7 @@ public class ProductPage {
     int referenceNumber = Integer.parseInt(
         productReferenceNumber.getAttribute("data-master-id"));
     String name = productName.getText();
-    double price = PriceUtil.convertEuro(productPrice.getText());
+    double price = PriceUtil.parseEuroValue(productPrice.getText());
     int quantity = 1;
 
     return new ProductDTO(referenceNumber, name, price, quantity);
