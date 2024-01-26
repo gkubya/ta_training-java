@@ -32,11 +32,17 @@ public class MainPage {
   @FindBy(className = "search-button-icon")
   private WebElement searchButton;
 
+
+
   public void searchForValue(String value) {
     this.searchFieldOpener.click();
     wait.until(ExpectedConditions.elementToBeClickable(searchButton));
     this.searchField.sendKeys(value);
     this.searchField.sendKeys(Keys.ENTER);
+  }
+
+  public void openProductPage(String value) {
+    driver.get(PAGE_URL + "es/es/" + value + ".html");
   }
 
   public int getSearchResultQuantity() {
