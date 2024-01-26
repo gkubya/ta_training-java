@@ -1,6 +1,8 @@
-package com.epam.training.student_gregory_kubya;
+package com.epam.training.student_gregory_kubya.pages;
 
 
+import com.epam.training.student_gregory_kubya.ProductDTO;
+import com.epam.training.student_gregory_kubya.utils.PriceUtil;
 import java.time.Duration;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -47,7 +49,8 @@ public class ProductPage {
     double price = PriceUtil.parseEuroValue(productPrice.getText());
     int quantity = 1;
 
-    return new ProductDTO(referenceNumber, name, price, quantity);
+    return ProductDTO.builder().referenceNumber(referenceNumber).name(name).price(price)
+        .quantity(quantity).build();
   }
 
   public void addToCart() {

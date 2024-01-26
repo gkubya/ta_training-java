@@ -1,6 +1,8 @@
-package com.epam.training.student_gregory_kubya;
+package com.epam.training.student_gregory_kubya.pages;
 
 
+import com.epam.training.student_gregory_kubya.ProductDTO;
+import com.epam.training.student_gregory_kubya.utils.PriceUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
@@ -55,7 +57,8 @@ public class CartPage {
           .substring(0, referenceNumbersOnCart.get(i).getText().length() - 4));
       double price = PriceUtil.parseEuroValue(productsPricesOnCart.get(i).getText());
       int quantity = Integer.parseInt(quantityOfItemsCart.get(i).getAttribute("value"));
-      ProductDTO product = new ProductDTO(referenceNumber, name, price, quantity);
+      ProductDTO product = ProductDTO.builder().referenceNumber(referenceNumber).name(name)
+          .price(price).quantity(quantity).build();
       getListOfAllProductsOnCartPage.add(product);
     }
     return getListOfAllProductsOnCartPage;

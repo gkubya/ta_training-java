@@ -1,4 +1,4 @@
-package com.epam.training.student_gregory_kubya;
+package com.epam.training.student_gregory_kubya.pages;
 
 import java.time.Duration;
 import org.openqa.selenium.Keys;
@@ -32,8 +32,6 @@ public class MainPage {
   @FindBy(className = "search-button-icon")
   private WebElement searchButton;
 
-
-
   public void searchForValue(String value) {
     this.searchFieldOpener.click();
     wait.until(ExpectedConditions.elementToBeClickable(searchButton));
@@ -56,7 +54,7 @@ public class MainPage {
 
   }
 
-  protected void openMainPage() {
+  public void openMainPage() {
     driver.get(PAGE_URL);
   }
 

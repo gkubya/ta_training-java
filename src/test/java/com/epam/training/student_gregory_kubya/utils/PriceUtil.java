@@ -1,4 +1,4 @@
-package com.epam.training.student_gregory_kubya;
+package com.epam.training.student_gregory_kubya.utils;
 
 public class PriceUtil {
 
