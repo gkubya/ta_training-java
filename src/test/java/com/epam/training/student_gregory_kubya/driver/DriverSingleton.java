@@ -1,5 +1,6 @@
 package com.epam.training.student_gregory_kubya.driver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,14 +14,14 @@ public class DriverSingleton {
   }
 
   public static WebDriver getDriver() {
-    if (null == driver) {
+    if (driver == null) {
       switch (System.getProperty("browser")) {
         case "firefox": {
-          System.setProperty("webdriver.firefox.bin",
-              "C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+          WebDriverManager.firefoxdriver().setup();
           driver = new FirefoxDriver();
         }
         default: {
+          WebDriverManager.chromedriver().setup();
           driver = new ChromeDriver();
         }
       }
@@ -33,5 +34,4 @@ public class DriverSingleton {
     driver.quit();
     driver = null;
   }
-
 }
