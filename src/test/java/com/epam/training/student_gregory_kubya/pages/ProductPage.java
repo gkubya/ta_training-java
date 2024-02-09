@@ -27,10 +27,10 @@ public class ProductPage {
   @FindBy(css = "div .scope_pdpSideBar> span.js-product-price.priceItem")
   private WebElement productPrice;
 
-  @FindBy(css = "label[for='size_M']")
+  @FindBy(css = "label[for='mainSizeIDM']")
   private WebElement productMediumSizeButton;
 
-  @FindBy(css = ".js-add-to-cart-button.gi-add-to-bag-desktop")
+  @FindBy(css = ".js-addToCartButton.addToCartButton")
   private WebElement addToCartButton;
 
   @FindBy(css = ".js-dialog-btnClose.gi-minicart-close")
