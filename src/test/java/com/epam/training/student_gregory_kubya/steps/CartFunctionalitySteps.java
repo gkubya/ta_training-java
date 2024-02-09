@@ -11,9 +11,10 @@ import io.cucumber.java.en.When;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 
-public class CartFunctionalitySteps extends BaseStepDef{
+public class CartFunctionalitySteps extends BaseStepDef {
 
   MainPage mainPage;
+
   CartPage cartPage;
   ProductPage productPage;
 
@@ -23,11 +24,13 @@ public class CartFunctionalitySteps extends BaseStepDef{
     productPage = new ProductPage(driver);
   }
 
-  @Given("User is on the home page")
-  public void userIsOnTheHomePage() {
+
+  @Given("User is on the homepage")
+  public void userIsOnTheHomepage() {
     mainPage.openMainPage();
     mainPage.waitMainPageTobeLoaded();
   }
+
 
   @When("Add the following products to the cart:")
   public void addTheFollowingProductsToTheCart(DataTable dataTable) {

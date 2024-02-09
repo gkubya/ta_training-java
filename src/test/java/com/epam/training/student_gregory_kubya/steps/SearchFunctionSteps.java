@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 
-public class SearchFunctionSteps extends BaseStepDef{
+public class SearchFunctionSteps extends BaseStepDef {
 
   MainPage mainPage;
 
@@ -15,7 +15,7 @@ public class SearchFunctionSteps extends BaseStepDef{
     mainPage = new MainPage(driver);
   }
 
-  @Given("User is on the homepage")
+  @Given("User is at the homepage")
   public void userIsOnTheHomepage() {
     mainPage.openMainPage();
     mainPage.waitMainPageTobeLoaded();
