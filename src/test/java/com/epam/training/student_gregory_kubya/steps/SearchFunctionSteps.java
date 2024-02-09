@@ -1,17 +1,20 @@
 package com.epam.training.student_gregory_kubya.steps;
 
 
+import com.epam.training.student_gregory_kubya.driver.WebDriverProvider;
 import com.epam.training.student_gregory_kubya.pages.MainPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.WebDriver;
 
-public class SearchFunctionSteps extends BaseStepDef {
+public class SearchFunctionSteps {
 
   MainPage mainPage;
 
   public SearchFunctionSteps() {
+    WebDriver driver = WebDriverProvider.getDriver();
     mainPage = new MainPage(driver);
   }
 

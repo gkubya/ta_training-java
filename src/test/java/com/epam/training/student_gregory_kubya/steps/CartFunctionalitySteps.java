@@ -1,5 +1,6 @@
 package com.epam.training.student_gregory_kubya.steps;
 
+import com.epam.training.student_gregory_kubya.driver.WebDriverProvider;
 import com.epam.training.student_gregory_kubya.pages.CartPage;
 import com.epam.training.student_gregory_kubya.pages.MainPage;
 import com.epam.training.student_gregory_kubya.pages.ProductPage;
@@ -10,8 +11,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.List;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.WebDriver;
 
-public class CartFunctionalitySteps extends BaseStepDef {
+public class CartFunctionalitySteps {
 
   MainPage mainPage;
 
@@ -19,6 +21,7 @@ public class CartFunctionalitySteps extends BaseStepDef {
   ProductPage productPage;
 
   public CartFunctionalitySteps() {
+    WebDriver driver = WebDriverProvider.getDriver();
     mainPage = new MainPage(driver);
     cartPage = new CartPage(driver);
     productPage = new ProductPage(driver);

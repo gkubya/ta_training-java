@@ -35,13 +35,6 @@
         <scope>import</scope>
       </dependency>
 
-<!--      <dependency>-->
-<!--        <groupId>io.cucumber</groupId>-->
-<!--        <artifactId>cucumber-bom</artifactId>-->
-<!--        <version>${cucumber.version}</version>-->
-<!--        <type>pom</type>-->
-<!--        <scope>import</scope>-->
-<!--      </dependency>-->
     </dependencies>
   </dependencyManagement>
 

@@ -2,7 +2,6 @@ package com.epam.training.student_gregory_kubya.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -25,7 +24,6 @@ public class WebDriverProvider {
         chromeOptions.addArguments("--disable-notifications");
         driver = WebDriverManager.chromedriver().capabilities(chromeOptions).create();
       }
-//      driver.manage().window().maximize();
     }
     return driver;
   }
