@@ -1,16 +1,22 @@
 package com.epam.training.student_gregory_kubya.steps;
 
-import static com.epam.training.student_gregory_kubya.tests.CommonConditions.mainPage;
 
+import com.epam.training.student_gregory_kubya.pages.MainPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 
-public class SearchFunctionSteps {
+public class SearchFunctionSteps extends BaseStepDef{
 
-  @Given("^User is on the homepage$")
-  public void iAmOnTheHomepage() {
+  MainPage mainPage;
+
+  public SearchFunctionSteps() {
+    mainPage = new MainPage(driver);
+  }
+
+  @Given("User is on the homepage")
+  public void userIsOnTheHomepage() {
     mainPage.openMainPage();
     mainPage.waitMainPageTobeLoaded();
   }

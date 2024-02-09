@@ -1,6 +1,8 @@
 package com.epam.training.student_gregory_kubya.pages;
 
 import java.time.Duration;
+import java.util.Date;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -56,6 +58,10 @@ public class MainPage {
 
   public void openMainPage() {
     driver.get(PAGE_URL);
+    driver.manage().addCookie(new Cookie(
+        "OptanonAlertBoxClosed",
+        "2024-02-07T18:45:38.694Z"));
+    driver.navigate().refresh(); //to apply cookies
   }
 
   public void waitMainPageTobeLoaded() {

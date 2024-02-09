@@ -22,6 +22,7 @@
     <lombok.version>1.18.20</lombok.version>
     <surefire.version>3.2.5</surefire.version>
     <junitsuite.version>1.10.1</junitsuite.version>
+    <cucumber.version>7.15.0</cucumber.version>
     <webdrivermanager.version>5.6.3</webdrivermanager.version>
   </properties>
   <dependencyManagement>
@@ -34,13 +35,13 @@
         <scope>import</scope>
       </dependency>
 
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-bom</artifactId>
-        <version>7.15.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>io.cucumber</groupId>-->
+<!--        <artifactId>cucumber-bom</artifactId>-->
+<!--        <version>${cucumber.version}</version>-->
+<!--        <type>pom</type>-->
+<!--        <scope>import</scope>-->
+<!--      </dependency>-->
     </dependencies>
   </dependencyManagement>
 
@@ -116,11 +117,13 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit-platform-engine</artifactId>
+      <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -135,6 +138,11 @@
           <argLine>
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
           </argLine>
+          <properties>
+            <configurationParameters>
+              cucumber.junit-platform.naming-strategy=long
+            </configurationParameters>
+          </properties>
           <systemProperties>
             <property>
               <name>allure.results.directory</name>

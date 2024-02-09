@@ -1,9 +1,8 @@
 package com.epam.training.student_gregory_kubya.steps;
 
-import static com.epam.training.student_gregory_kubya.tests.CommonConditions.cartPage;
-import static com.epam.training.student_gregory_kubya.tests.CommonConditions.mainPage;
-import static com.epam.training.student_gregory_kubya.tests.CommonConditions.productPage;
-
+import com.epam.training.student_gregory_kubya.pages.CartPage;
+import com.epam.training.student_gregory_kubya.pages.MainPage;
+import com.epam.training.student_gregory_kubya.pages.ProductPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -12,10 +11,20 @@ import io.cucumber.java.en.When;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 
-public class CartFunctionalitySteps {
+public class CartFunctionalitySteps extends BaseStepDef{
 
-  @Given("User is in the home page")
-  public void userIsInTheHomePage() {
+  MainPage mainPage;
+  CartPage cartPage;
+  ProductPage productPage;
+
+  public CartFunctionalitySteps() {
+    mainPage = new MainPage(driver);
+    cartPage = new CartPage(driver);
+    productPage = new ProductPage(driver);
+  }
+
+  @Given("User is on the home page")
+  public void userIsOnTheHomePage() {
     mainPage.openMainPage();
     mainPage.waitMainPageTobeLoaded();
   }

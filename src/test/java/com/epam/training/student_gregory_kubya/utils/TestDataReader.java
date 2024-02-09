@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 public class TestDataReader {
 
   public static List<String> getTestData() {
-    ResourceBundle bundle = ResourceBundle.getBundle(System.getProperty("environment"));
+    ResourceBundle bundle = ResourceBundle.getBundle(System.getProperty("environment", "qa"));
 
     List<String> productReferences = new ArrayList<>();
 

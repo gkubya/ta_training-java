@@ -1,7 +1,7 @@
 Feature: Cart functionality
 
   Scenario: Add different products to cart and check total
-    Given User is in the home page
+    Given User is on the home page
     When Add the following products to the cart:
       | 4957031 |
       | 4807284 |
