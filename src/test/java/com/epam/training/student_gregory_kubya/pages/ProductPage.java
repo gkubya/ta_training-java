@@ -18,7 +18,7 @@ public class ProductPage {
   private final WebDriverWait wait;
 
 
-  @FindBy(css = "div .scope_fixedBar>[data-master-id]")
+  @FindBy(css = "div.productReference")
   private WebElement productReferenceNumber;
 
   @FindBy(css = ".js-product-name")
@@ -27,14 +27,14 @@ public class ProductPage {
   @FindBy(css = "div .scope_pdpSideBar> span.js-product-price.priceItem")
   private WebElement productPrice;
 
-  @FindBy(css = "label[for='size_M']")
+  @FindBy(css = "label[for='mainSizeIDM']")
   private WebElement productMediumSizeButton;
 
-  @FindBy(css = ".js-add-to-cart-button.gi-add-to-bag-desktop")
+  @FindBy(css = ".js-addToCartButton.addToCartButton")
   private WebElement addToCartButton;
 
-  @FindBy(css = ".js-dialog-btnClose.gi-minicart-close")
-  private WebElement closeCartButton;
+  @FindBy(css = "div[class*='dialogClose']")
+  private WebElement dialogCloseButton;
 
 
   public ProductPage(WebDriver driver) {
@@ -42,9 +42,13 @@ public class ProductPage {
     wait = new WebDriverWait(driver, Duration.ofSeconds(2));
   }
 
+  private int getProductReferenceCodeFromProductPage() {
+    wait.until(ExpectedConditions.visibilityOf(productReferenceNumber));
+    return Integer.parseInt(productReferenceNumber.getText().replaceAll("\\D", ""));
+  }
+
   public ProductDTO createProductObject() {
-    int referenceNumber = Integer.parseInt(
-        productReferenceNumber.getAttribute("data-master-id"));
+    int referenceNumber = getProductReferenceCodeFromProductPage();
     String name = productName.getText();
     double price = PriceUtil.parseEuroValue(productPrice.getText());
     int quantity = 1;
@@ -59,9 +63,9 @@ public class ProductPage {
     addToCartButton.click();
 
     try {
-      wait.until(ExpectedConditions.elementToBeClickable(closeCartButton));
-      if (closeCartButton.isEnabled()) {
-        this.closeCartButton.click();
+      wait.until(ExpectedConditions.elementToBeClickable(dialogCloseButton));
+      if (dialogCloseButton.isEnabled()) {
+        this.dialogCloseButton.click();
       }
     } catch (TimeoutException e) {
       System.out.println("Close cart Button Not Found");
